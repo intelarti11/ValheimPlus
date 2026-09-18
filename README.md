@@ -263,7 +263,7 @@ A HarmonyX Mod aimed at improving the gameplay quality of Valheim. The mod inclu
 - Disable structural integrity entirely (this will cause objects placed mid-air to not break and fall).
 - Make anything built by players immune to all damage.
 - Make boats invincible to all damage.
-- Optionally remove player-built boats and carts with the hammer without changing their damage protection.
+- Dismantle player-built boats and carts with the hammer.
 
 ### Free Rotation Mode for the default Building Mode
 
