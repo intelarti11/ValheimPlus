@@ -362,11 +362,19 @@ namespace ValheimPlus.GameClasses
         {
             if (piece.m_canBeRemoved) return true;
 
-            return Configuration.Current.StructuralIntegrity.IsEnabled &&
-                   Configuration.Current.StructuralIntegrity.allowDismantlingOfBoatsAndCarts &&
-                   piece.IsPlacedByPlayer() &&
-                   (piece.GetComponentInChildren<Ship>() != null ||
-                    piece.GetComponentInChildren<Vagon>() != null);
+            if (!Configuration.Current.StructuralIntegrity.IsEnabled ||
+                !Configuration.Current.StructuralIntegrity.allowDismantlingOfBoatsAndCarts ||
+                !piece.IsPlacedByPlayer())
+                return false;
+
+            var ship = piece.GetComponentInChildren<Ship>();
+            var vagon = piece.GetComponentInChildren<Vagon>();
+            if (ship == null && vagon == null) return false;
+
+            var container = piece.GetComponentInChildren<Container>();
+            return (container == null || container.GetInventory().NrOfItems() == 0) &&
+                   (ship == null || ship.CanBeRemoved()) &&
+                   (vagon == null || !vagon.IsAttached());
         }
     }
 
